@@ -7,7 +7,6 @@ import shop.mtcoding.blog.util.MyDateUtil;
 
 import java.sql.Timestamp;
 
-
 @Data
 @Table(name = "board_tb")
 @Entity
@@ -24,5 +23,4 @@ public class Board {
     public String getTime(){
         return MyDateUtil.timestampFormat(createdAt);
     }
-
 }

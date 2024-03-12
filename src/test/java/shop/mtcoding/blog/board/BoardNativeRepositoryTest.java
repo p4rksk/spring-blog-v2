@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Import(BoardNativeRepository.class)
 @DataJpaTest
 public class BoardNativeRepositoryTest {
@@ -16,7 +18,7 @@ public class BoardNativeRepositoryTest {
     private BoardNativeRepository boardNativeRepository;
 
     @Test
-    public void finadAll_test(){
+    public void findAll_test(){
         //given
 
         //when
@@ -27,8 +29,22 @@ public class BoardNativeRepositoryTest {
         System.out.println("findAll_test/username : " + boardList.get(2).getUsername());
 
         //org.assertj.core.api(이걸로 태스트 확인하기)
-        Assertions.assertThat(boardList.size()).isEqualTo(4);
-        Assertions.assertThat(boardList.get(2).getUsername()).isEqualTo("ssar");
+        assertThat(boardList.size()).isEqualTo(4);
+        assertThat(boardList.get(2).getUsername()).isEqualTo("ssar");
+    }
+
+    @Test
+    public void findById_test(){
+        //given
+        int id = 1;
+
+        //when
+        Board board = boardNativeRepository.findById(id);
+        System.out.println("findById_test "+board);
+
+        //then
+        assertThat(board.getTitle()).isEqualTo("제목1");
+        assertThat(board.getContent()).isEqualTo("내용2");
     }
 
 }
