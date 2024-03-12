@@ -23,11 +23,11 @@ public class BoardPersistRepositoryTest {
     @Test
     public void save_test(){
         //given
-        Board board = new Board("제목5","내용5","ssar");
+        Board board = new Board("제목5","내용5","ssar"); //비영속 객체
 
         //when
-        boardPersistRepository.save(board);
-        System.out.println("save_test : "+board);
+        Board boardPc = boardPersistRepository.save(board);//영속 객체
+        System.out.println("save_test : "+boardPc);
     }
 
 //    @Test
