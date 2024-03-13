@@ -23,8 +23,8 @@ public class Board {
     private String content;
 
 //    @JoinColumn(name = "user_id")
-    @ManyToOne//연관 관계로 본다
-    private User user; //user_id  변수명_
+    @ManyToOne(fetch = FetchType.LAZY)//연관 관계로 본다
+    private User user; //user_id  변수명(객체)_객체 필드 명(칼럼)
 
     @CreationTimestamp//ps를 -> db로 갈때 날짜로 주입 됨
     private Timestamp createdAt;

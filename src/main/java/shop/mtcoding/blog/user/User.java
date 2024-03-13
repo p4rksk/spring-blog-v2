@@ -1,6 +1,7 @@
 package shop.mtcoding.blog.user;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -24,9 +25,12 @@ public class User {
     @CreationTimestamp//ps를 -> db로 갈때 날짜로 주입 됨
     private Timestamp createdAt;
 
-    public User(String username, String password, String email) {
+    @Builder
+    public User(Integer id, String username, String password, String email, Timestamp createdAt) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.createdAt = createdAt;
     }
 }
