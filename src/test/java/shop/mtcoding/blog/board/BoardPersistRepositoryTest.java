@@ -79,6 +79,17 @@ public class BoardPersistRepositoryTest {
         assertThat(boardList.size()).isEqualTo(4);
         assertThat(boardList.get(2).getUsername()).isEqualTo("ssar");
     }
+
+    @Test
+    public void findById(){
+        // given
+        int id = 1;
+
+        //when
+        Board board =boardPersistRepository.findById(id); //1차 캐쉬가 된다.
+        boardPersistRepository.findById(id);
+
+    }
 //
 //    @Test
 //    public void findById_test(){
