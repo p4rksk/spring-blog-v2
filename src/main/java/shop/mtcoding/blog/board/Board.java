@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import shop.mtcoding.blog.user.User;
 import shop.mtcoding.blog.util.MyDateUtil;
 
 import java.sql.Timestamp;
@@ -20,7 +21,10 @@ public class Board {
     private Integer id;
     private String title;
     private String content;
-    private String username;
+
+
+    @ManyToOne//연관 관계로 본다
+    private User user; //user_id  변수명_
 
     @CreationTimestamp//ps를 -> db로 갈때 날짜로 주입 됨
     private Timestamp createdAt;
@@ -29,16 +33,7 @@ public class Board {
         return MyDateUtil.timestampFormat(createdAt);
     }
 
-    public Board(String title, String content, String username) {
-        this.title = title;
-        this.content = content;
-        this.username = username;
-    }
+    
 
-    public void update(BoardRequest.UpdateDTO reqDTO){
-        this.title = reqDTO.getTitle();
-        this.content = reqDTO.getContent();
-        this.username = reqDTO.getUsername();
 
-    }
 }

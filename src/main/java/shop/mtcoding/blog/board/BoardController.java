@@ -15,41 +15,34 @@ import java.util.List;
 @Controller
 public class BoardController {
 
-    private final BoardPersistRepository boardPersistRepository;
+
 
 
     @PostMapping("/board/{id}/update")
-    public String update(@PathVariable Integer id, BoardRequest.UpdateDTO reqDTO){
-        boardPersistRepository.updateById(id,reqDTO);
+    public String update(@PathVariable Integer id){
         return "redirect:/board/"+id;
     }
 
     @GetMapping("/board/{id}/update-form")
     public String updateForm(@PathVariable Integer id,HttpServletRequest request){
-        Board board = boardPersistRepository.findById(id);
-        request.setAttribute("board",board);
         return "board/update-form";
     }
 
     @PostMapping("/board/{id}/delete")
     public String delete(@PathVariable Integer id){
-        boardPersistRepository.deleteByIdV1(id);
         return "redirect:/";
     }
 
     @PostMapping("/board/save")
-    public String save(BoardRequest.SaveDTO reqDTO){
-        boardPersistRepository.save(reqDTO.toEntity());
+    public String save(){
+
         return"redirect:/";
     }
 
     @GetMapping({ "/"})
     public String index(HttpServletRequest request){
 
-        List<Board>boardList = boardPersistRepository.findAll();
-        request.setAttribute("boardList",boardList);
-
-        return "index"; //서버가 내부적으로 index 페이지를 찾아서 가기때문에 요청이 두번일어난거다.(내부적으로 requestDispatcher가 일어난거다)
+        return "index";
     }
 
     @GetMapping("/board/save-form")
@@ -59,8 +52,6 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public String detail(@PathVariable Integer id, HttpServletRequest request) {
-        Board board =  boardPersistRepository.findById(id);
-        request.setAttribute("board",board);
         return "board/detail";
     }
 }
