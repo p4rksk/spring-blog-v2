@@ -31,7 +31,7 @@ public class BoardController {
 
     @PostMapping("/board/{id}/delete")
     public String delete(@PathVariable Integer id){
-        BoardPersistRepository.deleteById(id);
+        BoardPersistRepository.deleteByIdV2(id);
         return "redirect:/";
     }
 
