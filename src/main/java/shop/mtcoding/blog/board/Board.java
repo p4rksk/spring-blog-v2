@@ -22,7 +22,7 @@ public class Board {
     private String title;
     private String content;
 
-
+//    @JoinColumn(name = "user_id")
     @ManyToOne//연관 관계로 본다
     private User user; //user_id  변수명_
 
@@ -33,7 +33,7 @@ public class Board {
         return MyDateUtil.timestampFormat(createdAt);
     }
 
-    
+
 
 
 }
