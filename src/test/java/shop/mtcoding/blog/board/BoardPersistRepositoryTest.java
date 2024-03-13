@@ -64,21 +64,21 @@ public class BoardPersistRepositoryTest {
 //        assertThat(boardList.size()).isEqualTo(3);
 //    }
 //
-//    @Test
-//    public void findAll_test(){
-//        //given
-//
-//        //when
-//        List<Board> boardList = boardNativeRepository.findAll();
-//
-//        //then
-//        System.out.println("findAll_test/size : " + boardList.size());
-//        System.out.println("findAll_test/username : " + boardList.get(2).getUsername());
-//
-//        //org.assertj.core.api(이걸로 태스트 확인하기)
-//        assertThat(boardList.size()).isEqualTo(4);
-//        assertThat(boardList.get(2).getUsername()).isEqualTo("ssar");
-//    }
+    @Test
+    public void findAll_test(){
+        //given
+
+        //when
+        List<Board> boardList = boardPersistRepository.findAll();
+
+        //then
+        System.out.println("findAll_test/size : " + boardList.size());
+        System.out.println("findAll_test/username : " + boardList.get(2).getUsername());
+
+        //org.assertj.core.api(이걸로 태스트 확인하기)
+        assertThat(boardList.size()).isEqualTo(4);
+        assertThat(boardList.get(2).getUsername()).isEqualTo("ssar");
+    }
 //
 //    @Test
 //    public void findById_test(){
