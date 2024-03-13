@@ -62,6 +62,7 @@ public class BoardPersistRepository {
     @Transactional
     public void deleteByIdV1(int id) {
         Query query = em.createQuery("delete from Board b where b.id = :id");
+        query.setParameter("id",id);
         query.executeUpdate();
     }
 }
