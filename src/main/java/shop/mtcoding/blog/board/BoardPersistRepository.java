@@ -13,22 +13,29 @@ import java.util.List;
 public class BoardPersistRepository {
     private final EntityManager em;
 
+    @Transactional
+    public void updateById(int id, BoardRequest.UpdateDTO reqDTO){
+        Board board = findById(id);
+        board.update(reqDTO);
+    }//더티 체킹
+
+
     public Board findById(int id){
         Board board = em.find(Board.class,id); //PC에 띄어져있는 BOARD에 프라이머리키를 찾는다.
         return board;
     }
 
 
-    @Transactional
-    public void updateById(int id ,String title, String content, String username){
-        Query query = em.createNativeQuery("update board_tb set title=?, content=?, username=? where id =?");
-        query.setParameter(1,title);
-        query.setParameter(2,content);
-        query.setParameter(3,username);
-        query.setParameter(4,id);
-
-        query.executeUpdate();
-    }
+//    @Transactional
+//    public void updateById(int id ,String title, String content, String username){
+//        Query query = em.createNativeQuery("update board_tb set title=?, content=?, username=? where id =?");
+//        query.setParameter(1,title);
+//        query.setParameter(2,content);
+//        query.setParameter(3,username);
+//        query.setParameter(4,id);
+//
+//        query.executeUpdate();
+//    }
 
 //    public Board findById(int id){
 //        Query query = em.createNativeQuery("select * from board_tb where id =? ", Board.class);
