@@ -15,6 +15,7 @@ import java.util.Set;
 public class BoardRepository {
     private final EntityManager em;
 
+
     public List<Board> findAllV2() {
         Query q1 = em.createQuery("select b from Board b order by b.id desc", Board.class);
         List<Board> boardList = q1.getResultList();
