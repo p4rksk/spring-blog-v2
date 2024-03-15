@@ -29,6 +29,8 @@ public class UserRepositoryTest {
         //then
         Assertions.assertThat(user.getEmail()).isEqualTo("ssar@naver.com");
         Assertions.assertThat(user.getPassword()).isEqualTo("5678");
+        System.out.println(user.getPassword());
+        System.out.println(user.getEmail());
 
     }
 
