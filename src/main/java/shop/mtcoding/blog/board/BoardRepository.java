@@ -16,6 +16,13 @@ import java.util.Set;
 public class BoardRepository {
     private final EntityManager em;
 
+    @Transactional
+    public void deleteById(int id) {
+        Query query = em.createQuery("delete from Board b where b.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
     //update board_tb set title = ? where id = ?
     //update board_tb set title = ? where id = ?
     //update board_tb set title = ? where id = ?
