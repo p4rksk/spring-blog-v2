@@ -18,4 +18,13 @@ public class BoardRequest {
                     .build();
         }
     }
+
+    @Data
+    public static class updateDTO {
+        private String title;
+        private String content;
+
+
+    }
+
 }

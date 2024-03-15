@@ -16,6 +16,15 @@ import java.util.Set;
 public class BoardRepository {
     private final EntityManager em;
 
+    //update board_tb set title = ? where id = ?
+    //update board_tb set title = ? where id = ?
+    //update board_tb set title = ? where id = ?
+    public void updateById(int id, String title, String content){
+        Board board = findById(id);
+        board.setTitle(title);
+        board.setContent(content);
+    }
+
     @Transactional
     public Board save(Board board){
         em.persist(board);

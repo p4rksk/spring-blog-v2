@@ -12,6 +12,7 @@ public class UserRepositoryTest {
     @Autowired // DI
     private UserRepository userRepository;
 
+
     @Test
     public void findByUsername_test(){
         //given

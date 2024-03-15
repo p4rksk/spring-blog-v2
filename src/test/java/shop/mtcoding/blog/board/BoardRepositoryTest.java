@@ -1,6 +1,8 @@
 package shop.mtcoding.blog.board;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,6 +16,23 @@ import java.util.List;
 public class BoardRepositoryTest {
     @Autowired
     private BoardRepository boardRepository;
+
+    @Test
+    public void updateById_test(){
+        //given
+        int id = 1;
+        String title = "title1";
+        String content = "content1";
+
+        //when
+
+
+
+        //then
+
+    }
+
+
 
     @Test
     public void randomquery_test(){
