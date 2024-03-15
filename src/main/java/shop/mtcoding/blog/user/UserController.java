@@ -1,11 +1,13 @@
 package shop.mtcoding.blog.user;
 
+import jakarta.persistence.NoResultException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import shop.mtcoding.blog._core.erros.exception.Exception400;
 import shop.mtcoding.blog._core.erros.exception.Exception401;
 
 @RequiredArgsConstructor
@@ -25,16 +27,23 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO reqDTO){
-        User sessionUser = userRepository.findByUsernameAndPassword(reqDTO);
-        session.setAttribute("sessionUser",sessionUser);
-        return "redirect:/";
+        try {
+            User sessionUser = userRepository.findByUsernameAndPassword(reqDTO);
+            session.setAttribute("sessionUser", sessionUser);
+            return "redirect:/";
+        }catch (Exception e){
+            throw new Exception401("유저네임 혹은 비밀번호가 틀렸어요");
+        }
     }
 
     @PostMapping("/join")
     public String join(UserRequest.JoinDTO reqDTO){ //회원가입하면 바로 로그인 되는 시스템
-        User sessionUser = userRepository.save(reqDTO.toEntity());
 
-        session.setAttribute("sessionUser",sessionUser);
+        try {
+            userRepository.save(reqDTO.toEntity());
+        }catch (NoResultException e){
+            throw new Exception400("동일한 유저네임이 존재합니다");
+        }
         return "redirect:/";
     }
 
