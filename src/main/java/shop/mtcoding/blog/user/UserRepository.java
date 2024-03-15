@@ -5,12 +5,25 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import shop.mtcoding.blog.board.Board;
 
 @RequiredArgsConstructor
 @Repository
 public class UserRepository {
     private final EntityManager em;
+
+    public User updateById(int id, UserRequest.UpdateDTO reqDTO){
+        User user = findById(id);
+        user.setPassword(reqDTO.getPassword());
+        user.setEmail(reqDTO.getEmail());
+        return user;
+    }
+
+
+    public User findById(int id){
+        //id, title, content, user_id(이질감), created_at;
+        User user = em.find(User.class, id);
+        return user;
+    }
 
 //    @Transactional
 //    public User save2(String username, String password, String email){
@@ -25,10 +38,6 @@ public class UserRepository {
         return user;
     }
 
-
-    public void updateById(int id, String title, String content){
-
-    }
 
     public User findByUsernameAndPassword(UserRequest.LoginDTO reqDTO){
         Query query = em.createQuery("select u from User u where u.username = :username and u.password = :password" ,User.class);

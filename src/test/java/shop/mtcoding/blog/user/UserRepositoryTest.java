@@ -13,6 +13,35 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
 
+
+    @Test
+    public void Userupdate_test(){
+        //given
+        int id =1;
+        UserRequest.UpdateDTO reqDTO = new UserRequest.UpdateDTO();
+        reqDTO.setEmail("ssar@naver.com");
+        reqDTO.setPassword("5678");
+
+        //when
+        User user = userRepository.updateById(id,reqDTO);
+
+
+        //then
+        Assertions.assertThat(user.getEmail()).isEqualTo("ssar@naver.com");
+        Assertions.assertThat(user.getPassword()).isEqualTo("5678");
+
+    }
+
+    @Test
+    public void findById_test(){
+        //given
+        int id = 1;
+
+        //when
+        userRepository.findById(id);
+        //then
+    }
+
     @Test
     public void findByUsername_test(){
         //given
