@@ -54,7 +54,7 @@ public class UserController {
     @GetMapping("/user/update-form")
     public String updateForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.회원정보수정폼(sessionUser.getId());
+        User user = userService.회원조회(sessionUser.getId());
         if (sessionUser == null){
             throw new Exception401("인증되지 않았어요. 로그인 되었어요");
         }

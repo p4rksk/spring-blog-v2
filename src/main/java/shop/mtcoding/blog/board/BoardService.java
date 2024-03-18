@@ -1,17 +1,38 @@
 package shop.mtcoding.blog.board;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.blog._core.erros.exception.Exception403;
 import shop.mtcoding.blog._core.erros.exception.Exception404;
 import shop.mtcoding.blog.user.User;
 
+import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class BoardService {
     private final BoardJPARepository boardJPARepository;
 
+    // board, isOwner
+    // board, isOwner
+    public Board 글상세보기(int boardId, User sessionUser) {
+        Board board = boardJPARepository.findByIdJoinUser(boardId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다"));
+
+        boolean isOwner = false;
+        if(sessionUser != null){
+            if(sessionUser.getId() == board.getUser().getId()){
+                isOwner = true;
+            }
+        }
+
+        board.setOwner(isOwner);
+
+        return board;
+    }
 
 
     public Board 글조회(int boardId){
@@ -53,4 +74,24 @@ public class BoardService {
 
         boardJPARepository.deleteById(boardId);
     }
+
+    public List<Board> 글목록조회(){
+        Sort sort = Sort.by(Sort.Direction.DESC,"id");
+        return boardJPARepository.findAll(sort);
+    }
+
+//    public void 글상세보기(Integer boardId, User sessionUser) {
+//        Board board = boardJPARepository.findByIdJoinUser(boardId)
+//                .orEl
+//
+//        //로그인을 하고 게시글의 주인이면 isOwner가 true가 된다.
+//        boolean isOwner = false;
+//        if(sessionUser != null) {
+//            if (sessionUser.getId() == board.getUser().getId()){
+//                isOwner = true;
+//            }
+//        }
+
+
 }
+
