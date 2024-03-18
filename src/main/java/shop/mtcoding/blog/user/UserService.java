@@ -25,7 +25,7 @@ public class UserService {
         return user;
     }
 
-    public User 회원정보수정폼(int id){
+    public User 회원조회(int id){
         User user =  userJPARepository.findById(id)
                 .orElseThrow(()->new Exception404("회원정보를 찾을 수 없습니다."));
         return user;
