@@ -19,13 +19,14 @@ import java.util.List;
 @Controller
 public class BoardController {
 
+    private final BoardService boardService;
     private final BoardRepository boardRepository;
     private final HttpSession session;
 
     @PostMapping("/board/save")
     public String save(BoardRequest.SaveDTO reqDTO){
         User sessionUser = (User) session.getAttribute("sessionUser");
-        boardRepository.save(reqDTO.toEntity(sessionUser));
+        boardService.글쓰기(reqDTO, sessionUser);
 
         return"redirect:/";
     }
@@ -45,12 +46,8 @@ public class BoardController {
 
     @GetMapping("/board/{id}/update-form")
     public String updateForm(@PathVariable Integer id,HttpServletRequest request){
-        Board board = boardRepository.findById(id);
-
-        if(board == null){
-            throw new Exception404("해당 게시글을 찾을 수 없습니다");
-        }
-
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        Board board = boardService.게시글수정폼(id,sessionUser.getId());
         request.setAttribute("board",board);
         return "board/update-form";
     }
