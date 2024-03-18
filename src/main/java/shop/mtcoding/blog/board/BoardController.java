@@ -54,11 +54,7 @@ public class BoardController {
     @PostMapping("/board/{id}/delete")
     public String delete(@PathVariable Integer id){
         User sessionUser = (User) session.getAttribute("sessionUser");
-        Board board= boardRepository.findById(id);
-
-        if (sessionUser.getId() != board.getUser().getId()){
-            throw new Exception403("게시글을 삭제할 권한이 없습니다");
-        }
+        boardService.글삭제(id, sessionUser.getId());
         return "redirect:/";
     }
 

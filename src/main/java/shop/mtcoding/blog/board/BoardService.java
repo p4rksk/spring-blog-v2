@@ -12,6 +12,8 @@ import shop.mtcoding.blog.user.User;
 public class BoardService {
     private final BoardJPARepository boardJPARepository;
 
+
+
     public Board 글조회(int boardId){
         Board board = boardJPARepository.findById(boardId)
                 .orElseThrow(()->new Exception404("게시글을 찾을 수 없습니다"));
@@ -38,5 +40,17 @@ public class BoardService {
         boardJPARepository.save(reqDTO.toEntity(sessionUser));
         return "redirect:/";
 
+    }
+
+    @Transactional
+    public void 글삭제(Integer boardId, Integer sessionUserId) {
+        Board board= boardJPARepository.findById(boardId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
+        if (sessionUserId != board.getUser().getId()){
+            throw new Exception403("게시글을 삭제할 권한이 없습니다");
+        }
+
+        boardJPARepository.deleteById(boardId);
     }
 }
