@@ -30,13 +30,9 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO reqDTO){
-        try {
-            User sessionUser = userRepository.findByUsernameAndPassword(reqDTO);
-            session.setAttribute("sessionUser", sessionUser);
-            return "redirect:/";
-        }catch (EmptyResultDataAccessException e){
-            throw new Exception401("유저네임 혹은 비밀번호가 틀렸어요");
-        }
+       User sessionUser = userService.로그인(reqDTO);
+       session.setAttribute("sessionUser",sessionUser);
+       return "redirect:/";
     }
 
     @PostMapping("/join")

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.blog._core.erros.exception.Exception400;
+import shop.mtcoding.blog._core.erros.exception.Exception401;
 
 import java.util.Optional;
 
@@ -12,6 +13,12 @@ import java.util.Optional;
 public class UserService {
 
     private final UserJPARepository userJPARepository;
+
+    public User 로그인(UserRequest.LoginDTO reqDTO){
+       User sessionUser = userJPARepository.findByUsernameAndPassword(reqDTO.getUsername(), reqDTO.getPassword())
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));//회원가입 때 DB에 없는 값을 넣으면 null로 돌려준다.
+        return sessionUser;
+    }
 
     @Transactional
     public void 회원가입(UserRequest.JoinDTO reqDTO){
