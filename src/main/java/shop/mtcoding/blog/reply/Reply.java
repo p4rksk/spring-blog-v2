@@ -34,10 +34,11 @@ public class Reply {
     private boolean isReplyOwner;
 
     @Builder
-    public Reply(Integer id, User user, Board board, Timestamp createdAt) {
+    public Reply(Integer id, User user, Board board, String comment,Timestamp createdAt) {
         this.id = id;
         this.user = user;
         this.board = board;
+        this.comment = comment;
         this.createdAt = createdAt;
     }
 }
