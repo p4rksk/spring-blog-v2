@@ -57,7 +57,7 @@ public class BoardJPARepositoryTest {
         //given
         int id = 1;
         //when
-        Board board  = boardJPARepository.findByIdJoinUser(id);
+        Board board  = boardJPARepository.findByIdJoinUser(id).get();
 
         //then
         System.out.println("findByIdJoinUser_test : "+board.getTitle());
