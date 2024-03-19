@@ -31,11 +31,11 @@ public class Board {
     @CreationTimestamp // pc -> db (날짜주입)
     private Timestamp createdAt;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)//양방향 매핑
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)//양방향 매핑
     private List<Reply> replies = new ArrayList<>(); //댓글이 없으면 null 값이 들어가 터질 수 있어서 new 해서 댓글 박스를 만들어놓기
 
     @Transient // 테이블 생성이 안됨
-    private boolean isOwner;
+    private boolean isBoardOwner;
 
 
     @Builder
