@@ -21,11 +21,18 @@ public class BoardController {
     private final BoardRepository boardRepository;
     private final HttpSession session;
 
-    // TODO :글 목록 조회 API 필요
-    // TODO :글 조회 API 필요
-    // TODO :글 상세보기 API 필요
+    // TODO :글 목록 조회 API 필요 -> @GetMapping("/")
 
-    @PostMapping("/board/save")
+    // TODO :글 상세보기 API 필요 -> @GetMapping("/api/boards/{id}/detail")
+
+    // TODO :글 조회 API 필요 -> @GetMapping("/api/boards/{id}")
+
+
+
+
+
+
+    @PostMapping("/api/boards")
     public String save(BoardRequest.SaveDTO reqDTO){
         User sessionUser = (User) session.getAttribute("sessionUser");
         boardService.글쓰기(reqDTO, sessionUser);
@@ -33,7 +40,7 @@ public class BoardController {
         return"redirect:/";
     }
 
-    @PostMapping("/board/{id}/update")
+    @PutMapping("/api/boards/{id}")
     public String update(@PathVariable Integer id,BoardRequest.updateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Board board= boardRepository.findById(id);
@@ -48,7 +55,7 @@ public class BoardController {
 
 
 
-    @PostMapping("/board/{id}/delete")
+    @DeleteMapping("/api/boards/{id}")
     public String delete(@PathVariable Integer id){
         User sessionUser = (User) session.getAttribute("sessionUser");
         boardService.글삭제(id, sessionUser.getId());

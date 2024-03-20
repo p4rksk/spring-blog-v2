@@ -9,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import shop.mtcoding.blog._core.erros.exception.Exception400;
 import shop.mtcoding.blog._core.erros.exception.Exception401;
 
@@ -19,10 +20,10 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
-    // TODO : 회원 정보 조회 API 필요
+    // TODO : 회원 정보 조회 API 필요 @GetMapping("/api/users/{id}")
 
 
-    @PostMapping("/user/update")
+    @PutMapping("/api/users/{id}")
     public String update(UserRequest.UpdateDTO reqDTO ){
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.회원수정(sessionUser.getId(), reqDTO);
