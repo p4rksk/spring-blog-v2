@@ -19,6 +19,8 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
+    // TODO : 회원 정보 조회 API 필요
+
 
     @PostMapping("/user/update")
     public String update(UserRequest.UpdateDTO reqDTO ){
@@ -39,27 +41,6 @@ public class UserController {
     public String join(UserRequest.JoinDTO reqDTO){ //회원가입하면 바로 로그인 되는 시스템
         userService.회원가입(reqDTO);
         return "redirect:/";
-    }
-
-    @GetMapping("/join-form")
-    public String joinForm() {
-        return "/user/join-form";
-    }
-
-    @GetMapping("/login-form")
-    public String loginForm() {
-        return "/user/login-form";
-    }
-
-    @GetMapping("/user/update-form")
-    public String updateForm(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.회원조회(sessionUser.getId());
-        if (sessionUser == null){
-            throw new Exception401("인증되지 않았어요. 로그인 되었어요");
-        }
-        request.setAttribute("user", user);
-        return "/user/update-form";
     }
 
     @GetMapping("/logout")
