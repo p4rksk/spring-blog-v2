@@ -1,47 +1,44 @@
 package shop.mtcoding.blog.user;
 
-import jakarta.persistence.NoResultException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import shop.mtcoding.blog._core.erros.exception.Exception400;
-import shop.mtcoding.blog._core.erros.exception.Exception401;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import shop.mtcoding.blog._core.utils.ApiUtil;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserController {
 
     private final UserService userService;
     private final HttpSession session;
 
     // TODO : 회원 정보 조회 API 필요 @GetMapping("/api/users/{id}")
-
+    @GetMapping("/api/users/{id}")
+    public ResponseEntity<?> userinfo(@PathVariable Integer id) {
+        User user = userService.회원조회(id);
+        return ResponseEntity.ok(new ApiUtil(user));
+    }
 
     @PutMapping("/api/users/{id}")
-    public String update(UserRequest.UpdateDTO reqDTO ){
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody UserRequest.UpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.회원수정(sessionUser.getId(), reqDTO);
-        session.setAttribute("sessionUser",newSessionUser);
-        return "redirect:/";
+        session.setAttribute("sessionUser", newSessionUser);
+        return ResponseEntity.ok(new ApiUtil(newSessionUser));
     }
 
     @PostMapping("/login")
-    public String login(UserRequest.LoginDTO reqDTO){
-       User sessionUser = userService.로그인(reqDTO);
-       session.setAttribute("sessionUser",sessionUser);
-       return "redirect:/";
+    public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
+        User sessionUser = userService.로그인(reqDTO);
+        session.setAttribute("sessionUser", sessionUser);
+        return ResponseEntity.ok(new ApiUtil(null));
     }
 
     @PostMapping("/join")
-    public String join(UserRequest.JoinDTO reqDTO){ //회원가입하면 바로 로그인 되는 시스템
-        userService.회원가입(reqDTO);
-        return "redirect:/";
+    public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) { //회원가입하면 바로 로그인 되는 시스템
+        User user = userService.회원가입(reqDTO);
+        return ResponseEntity.ok(new ApiUtil(user));
     }
 
     @GetMapping("/logout")

@@ -20,7 +20,7 @@ public class BoardRequest {
     }
 
     @Data
-    public static class updateDTO {
+    public static class UpdateDTO {
         private String title;
         private String content;
 
