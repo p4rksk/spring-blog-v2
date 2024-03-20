@@ -95,9 +95,10 @@ public class BoardService {
         boardJPARepository.deleteById(boardId);
     }
 
-    public List<Board> 글목록조회(){
+    public List<BoardResponse.mainDTO> 글목록조회(){
         Sort sort = Sort.by(Sort.Direction.DESC,"id");
-        return boardJPARepository.findAll(sort);
+        List<Board> boardList = boardJPARepository.findAll(sort);
+        return boardList.stream().map(board -> new BoardResponse.mainDTO(board)).toList(); // 물가에 뿌리는게 원래는 board 객체를 뿌리는데 mainDTO를 뿌리는걸로 바뀌고 리스트의 담음
     }
 
 //    public void 글상세보기(Integer boardId, User sessionUser) {

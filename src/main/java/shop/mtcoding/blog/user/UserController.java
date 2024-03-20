@@ -14,10 +14,10 @@ public class UserController {
     private final HttpSession session;
 
     // TODO : 회원 정보 조회 API 필요 @GetMapping("/api/users/{id}")
-    @GetMapping("/api/users/{id}")
+    @GetMapping("users/{id}")
     public ResponseEntity<?> userinfo(@PathVariable Integer id) {
-        User user = userService.회원조회(id);
-        return ResponseEntity.ok(new ApiUtil(user));
+        UserResponse.DTO respDTO = userService.회원조회(id);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     @PutMapping("/api/users/{id}")
