@@ -29,7 +29,7 @@ public class UserController {
 
         //만들기
         UserResponse.DTO respDTO = new UserResponse.DTO(newSessionUser);
-        return ResponseEntity.ok(new ApiUtil(respDTO)); //확인하기
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     @PostMapping("/login")
