@@ -29,7 +29,7 @@ public class UserController {
 
         //만들기
         UserResponse.DTO respDTO = new UserResponse.DTO(newSessionUser);
-        return ResponseEntity.ok(new ApiUtil(newSessionUser));
+        return ResponseEntity.ok(new ApiUtil(respDTO)); //확인하기
     }
 
     @PostMapping("/login")
@@ -41,8 +41,8 @@ public class UserController {
 
     @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) { //회원가입하면 바로 로그인 되는 시스템
-        User user = userService.회원가입(reqDTO);
-        return ResponseEntity.ok(new ApiUtil(user));
+        UserResponse.DTO respDTO = userService.회원가입(reqDTO);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     @GetMapping("/logout")

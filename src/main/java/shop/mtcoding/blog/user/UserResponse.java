@@ -4,6 +4,7 @@ import lombok.Data;
 
 public class UserResponse {
 
+
     @Data
     public static class DTO{
         private int id;
