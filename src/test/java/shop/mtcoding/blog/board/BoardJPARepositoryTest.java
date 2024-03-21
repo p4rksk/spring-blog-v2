@@ -1,5 +1,7 @@
 package shop.mtcoding.blog.board;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,19 @@ public class BoardJPARepositoryTest {
 
     @Autowired
     private EntityManager em;
+
+    @Test
+    public void findAllWithReplyCount_test() throws JsonProcessingException {
+        // given
+
+        // when
+        List<BoardResponse.CountDTO> respDTO = boardJPARepository.findAllWithReplyCount();
+        // then
+        System.out.println(respDTO);
+        ObjectMapper om = new ObjectMapper();
+        String json = om.writeValueAsString(respDTO);
+        System.out.println("json = " + json);
+    }
 
     @Test
     public void findByIdJoinUserAndReplies_test(){

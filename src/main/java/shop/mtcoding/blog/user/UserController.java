@@ -25,6 +25,10 @@ public class UserController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User newSessionUser = userService.회원수정(sessionUser.getId(), reqDTO);
         session.setAttribute("sessionUser", newSessionUser);
+
+
+        //만들기
+        UserResponse.DTO respDTO = new UserResponse.DTO(newSessionUser);
         return ResponseEntity.ok(new ApiUtil(newSessionUser));
     }
 
